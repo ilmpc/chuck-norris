@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { Button } from "components/Button";
+import { useState } from "react";
 import { useGetRandomJokeQuery } from "services/api";
 
 const Container = styled.div`
@@ -10,22 +11,36 @@ const Container = styled.div`
   max-width: 30rem;
 `;
 
-const Column = styled.div`
+const Column = styled.div<{ gap?: number | string }>`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 2rem;
+  gap: ${({ gap = "2rem" }) => gap};
   text-align: center;
+  margin: 0 1rem;
 `;
 
 export const Main: React.VFC = () => {
-  const { data: joke, isLoading, refetch } = useGetRandomJokeQuery();
+  const [auto, setAuto] = useState<Boolean>(false);
+  const {
+    data: joke,
+    isLoading,
+    isFetching,
+    refetch,
+  } = useGetRandomJokeQuery(undefined, { pollingInterval: auto ? 3000 : 0 });
   return (
     <Container>
       <Column>
         {isLoading && "Loading..."}
         {joke?.value}
-        <Button onClick={refetch}>Next cite</Button>
+        <Column gap="0.5rem">
+          <Button onClick={refetch} disabled={isFetching} variant="primary">
+            Next joke
+          </Button>
+          <Button onClick={() => setAuto((e) => !e)}>
+            {auto ? "Disable" : "Enable"} auto next
+          </Button>
+        </Column>
       </Column>
     </Container>
   );
