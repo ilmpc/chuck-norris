@@ -1,9 +1,15 @@
-import { Route, Routes } from "react-router";
+import { Route, Routes } from 'react-router'
 
-import { Main } from "./Main";
+import { Container } from 'components/Container'
+
+import { Main } from './Main'
+import { Favorites } from './Favorites'
 
 export const Pages = () => (
-  <Routes>
-    <Route path="/" element={<Main />} />
-  </Routes>
-);
+  <Container>
+    <Routes>
+      <Route path="/" element={<Main />} />
+      <Route path="/favorites" element={<Favorites />} />
+    </Routes>
+  </Container>
+)
