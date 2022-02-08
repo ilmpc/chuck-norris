@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
 import { Button, ButtonLink } from 'components/Button'
 import { Column } from 'components/Column'
@@ -10,6 +10,11 @@ export const Main: React.VFC = () => {
   const [refetch, { isFetching }] = api.endpoints.getJoke.useLazyQuery({
     pollingInterval: auto ? 3000 : 0,
   })
+  const handleAutoFetchSwitch = useCallback(() => {
+    setAuto((e) => !e)
+    refetch()
+  }, [refetch, setAuto])
+
   return (
     <Column>
       <Joke />
@@ -17,7 +22,7 @@ export const Main: React.VFC = () => {
         <Button onClick={() => refetch()} disabled={isFetching} variant="primary">
           Next joke
         </Button>
-        <Button onClick={() => setAuto((e) => !e)}>{auto ? 'Disable' : 'Enable'} auto next</Button>
+        <Button onClick={handleAutoFetchSwitch}>{auto ? 'Disable' : 'Enable'} auto next</Button>
         <ButtonLink to="/favorites">Favorites</ButtonLink>
       </Column>
     </Column>
