@@ -1,10 +1,13 @@
 import styled from '@emotion/styled'
 
-export const Container = styled.div`
+import { CSSSize } from 'types'
+
+export const Container = styled.div<{ maxWidth?: CSSSize }>`
   display: grid;
   place-items: center;
   height: 100%;
   margin: 0 auto;
-  max-width: 30rem;
-  padding: 0 1rem;
+  max-width: ${({ maxWidth }) => maxWidth};
+  padding: 1rem;
+  gap: 1rem;
 `

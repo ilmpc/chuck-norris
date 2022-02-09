@@ -7,6 +7,8 @@ import { Id } from 'types'
 import { Like } from 'components/Like'
 import { favoriteJokes } from 'services/favoriteJokes'
 
+import { Column } from './Column'
+
 interface JokeProps {
   id?: Id
 }
@@ -19,7 +21,7 @@ export const Joke: React.VFC<JokeProps> = ({ id }) => {
   )
 
   return (
-    <div>
+    <Column gap="0.5rem">
       {isLoading && 'Loading...'}
       {joke != null && (
         <>
@@ -34,6 +36,6 @@ export const Joke: React.VFC<JokeProps> = ({ id }) => {
           </div>
         </>
       )}
-    </div>
+    </Column>
   )
 }

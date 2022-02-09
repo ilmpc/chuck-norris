@@ -1,3 +1,5 @@
+export type CSSSize = number | string
+
 export type Id = string
 export interface Joke {
   id: Id
